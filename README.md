@@ -40,8 +40,13 @@ PORT=3000
 4. Iniciar servidor
 
 ```bash
-npm start
+npm run dev
 ```
+
+4. Crear tablas, procedures, indices, insert en base de datos (SQL server)
+
+El script para crear la base de datos se encuentra en `docs/database/script.sql`
+
 
 ## Documentación API
 
@@ -206,11 +211,6 @@ DELETE localhost:3000/api/turnos/{id}
 - 400: Solicitud incorrecta
 - 404: Recurso no encontrado
 - 500: Error interno del servidor
-
-## Base de Datos
-
-El script para crear la base de datos se encuentra en `docs/database/script.sql`
-
 
 ## Decisiones Técnicas y Trade-offs
 
