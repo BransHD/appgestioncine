@@ -211,9 +211,64 @@ DELETE localhost:3000/api/turnos/{id}
 
 El script para crear la base de datos se encuentra en `docs/database/script.sql`
 
-## Decisiones Técnicas
 
-- **Node.js + Express**: Framework ligero y fácil de mantener
-- **Sequelize**: ORM para manejo de base de datos
-- **SQL Server**: Base de datos relacional robusta para garantizar integridad de datos
-- **RESTful API**: Diseño de API siguiendo principios REST para mejor escalabilidad y mantenimiento
+## Decisiones Técnicas y Trade-offs
+
+### Arquitectura del Proyecto
+
+#### 1. Router -> Controller (2-Layer Architecture)
+✅ **Ventajas**
+- Arquitectura simple y directa
+- Menos complejidad y overhead
+- Más fácil de entender y mantener
+- Respuesta rápida a cambios
+
+❌ **Desventajas**
+- Lógica de negocio mezclada con acceso a datos
+- Más difícil de testear unitariamente
+- Posible duplicación de código
+
+#### 2. SQL Directo con Sequelize
+✅ **Ventajas**
+- Control total sobre las queries
+- Mejor performance en consultas complejas
+- Aprovechamiento de características SQL Server
+- Más fácil de optimizar queries
+
+❌ **Desventajas**
+- Código más acoplado a SQL Server
+- Mantenimiento manual de queries
+
+#### 3. Tecnologías Principales
+- **Node.js**: Runtime JavaScript
+- **Express**: Framework web minimalista
+- **Sequelize**: ORM para conexión con base de datos
+- **SQL Server**: Sistema de base de datos relacional
+
+### Trade-offs Realizados
+
+1. **Simplicidad vs Separación de Responsabilidades**
+   - Se priorizó una arquitectura simple de 2 capas
+   - Se sacrificó algo de separación de responsabilidades
+   - Ganamos velocidad de desarrollo y mantenimiento más sencillo
+
+3. **Velocidad de Desarrollo vs Arquitectura Empresarial**
+   - Implementación rápida y directa
+   - Menos capas de abstracción
+   - Más fácil de debuggear
+
+### Consideraciones
+
+1. **Seguridad**
+   - Uso de Sequelize para prevenir SQL injection
+   - Validación de datos en controllers
+   - Manejo de errores centralizado
+
+2. **Mantenibilidad**
+   - Código organizado por funcionalidad
+   - Nombres descriptivos para rutas y controllers
+
+3. **Performance**
+   - Queries SQL optimizadas
+   - Índices en tablas principales
+   - Paginación implementada

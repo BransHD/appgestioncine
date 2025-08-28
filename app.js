@@ -2,11 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const { limiter } = require('./src/middlewares/rateLimit');
+const { corsConfig } = require('./src/middlewares/cors');
 
 const app = express();
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(limiter);
+app.use(corsConfig);
 
 // Rutas
 //app.use('/api/configuracion', require('./routes/configuracion.routes'));
