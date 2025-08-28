@@ -49,6 +49,8 @@ CREATE TABLE Peliculas (
     CONSTRAINT FK_Peliculas_Clasificacion FOREIGN KEY (clasificacionId) REFERENCES Clasificacion(id),
     CONSTRAINT FK_Peliculas_Genero FOREIGN KEY (generoId) REFERENCES Genero(id)
 );
+CREATE NONCLUSTERED INDEX IX_Peliculas_Titulo ON Peliculas(titulo);
+
 INSERT INTO Peliculas 
 (
     titulo,
@@ -64,7 +66,7 @@ VALUES
 (
     'Edgame',
     'Los vengadores afrontan una travesia a travez del tiempo para arreglar lo que paso en el pasado.',
-    156,
+    150,
     2,
     1,
     'S',
@@ -90,6 +92,30 @@ CREATE TABLE Turnos (
     ,fecmov DATETIME NULL
     ,CONSTRAINT FK_Turnos_Peliculas FOREIGN KEY (peliculaId) REFERENCES Peliculas(id)
 );
+CREATE TABLE Turnos (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    peliculaId INT NOT NULL,
+    sala NVARCHAR(50) NOT NULL,
+    inicio DATETIME2(0) NOT NULL,
+    fin DATETIME2(0) NOT NULL,
+    precio DECIMAL(10,2) NULL,
+    idioma NVARCHAR(20) NULL, 
+    formato VARCHAR(2) NULL,
+    aforo INT NULL,
+    estado CHAR(1)
+    ,userCreate NVARCHAR(50) NULL
+    ,fecrre DATETIME DEFAULT GETDATE()
+    ,userModify NVARCHAR(50) NULL
+    ,fecmov DATETIME NULL
+    ,CONSTRAINT FK_Turnos_Peliculas FOREIGN KEY (peliculaId) REFERENCES Peliculas(id)
+);
+CREATE NONCLUSTERED INDEX IX_Turnos_Sala_Inicio_Fin ON Turnos(sala, inicio, fin);
+
+INSERT INTO Turnos 
+(peliculaId, sala, inicio, fin, precio, idioma, formato, aforo, estado, userCreate, fecrre) 
+VALUES 
+(1, 'A1', '2025-08-27 14:00:00', '2025-08-27 16:30:00', 150.00, 'Doblaje latino', '2D', 100, 'S', 'BMELENDEZ', GETDATE()),
+(2, 'A2', '2025-08-27 14:00:00', '2025-08-27 16:30:00', 16.00, 'Doblaje Ingles', '2D', 120, 'S', 'BMELENDEZ', GETDATE());
 /****************************************************************************************************/
 /****************************************************************************************************/
 

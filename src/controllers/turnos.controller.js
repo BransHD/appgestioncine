@@ -1,4 +1,5 @@
 const connectionDB = require('../config/db/conexionsequelize');
+const { QueryTypes } = require('sequelize');
 
 module.exports = {
   // GET /api/turnos?peliculaId=&sala=&desde=&hasta=
@@ -113,7 +114,7 @@ module.exports = {
         });
       }
 
-      await connectionDB.query(
+      const result = await connectionDB.query(
         `
         EXEC sp_InsTurno
           :peliculaId,
@@ -138,8 +139,16 @@ module.exports = {
             aforo: aforo,
             userCreate: user,
           },
+          type: QueryTypes.SELECT,
         }
       );
+      if (result[0].status === 'error') {
+        return res.status(400).json({
+          code: 400,
+          message: 'Error al crear el turno',
+          data: [{ mensaje: result[0].mensaje }],
+        });
+      }
 
       res.status(201).json({
         code: 201,
@@ -191,17 +200,26 @@ module.exports = {
         {
           replacements: {
             id: parseInt(id, 10),
-            sala : sala,
-            inicio : inicio,
-            fin : fin,
-            precio : precio,
-            idioma : idioma,
-            formato : formato,
-            aforo : aforo,
-            userModify : user,
+            sala: sala,
+            inicio: inicio,
+            fin: fin,
+            precio: precio,
+            idioma: idioma,
+            formato: formato,
+            aforo: aforo,
+            userModify: user,
           },
+          type: QueryTypes.SELECT,
         }
       );
+
+      if (result[0].status === 'error') {
+        return res.status(400).json({
+          code: 400,
+          message: 'Error al crear el turno',
+          ddata: [{ mensaje: result[0].mensaje }],
+        });
+      }
 
       res.status(200).json({
         code: 200,
