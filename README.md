@@ -10,17 +10,20 @@ Sistema de gestión de turnos y películas para cines.
 ## Instalación
 
 1. Clonar el repositorio
+
 ```bash
 git clone https://github.com/BransHD/appgestioncine.git
 cd appgestioncine
 ```
 
 2. Instalar dependencias
+
 ```bash
 npm install
 ```
 
 3. Configurar variables de entorno
+
 ```bash
 # Crear archivo .env y configurar:
 # Database
@@ -35,6 +38,7 @@ PORT=3000
 ```
 
 4. Iniciar servidor
+
 ```bash
 npm start
 ```
@@ -44,29 +48,33 @@ npm start
 ### Endpoints de Películas
 
 #### Listar Películas
+
 ```http
-GET /peliculas
+GET localhost:3000/api/peliculas
 ```
 
 **Query Parameters:**
+
 - `search` (string, optional): Búsqueda por título
 - `genero` (string, optional): Filtrar por género
 - `estado` (string, optional): Estado de la película (default: 'S')
 - `page` (number, optional): Número de página (default: 1)
 - `pageSize` (number, optional): Elementos por página (default: 10)
-```
 
 #### Obtener Película por ID
+
 ```http
-GET /peliculas/{id}
+GET /localhost:3000/api/peliculas/{id}
 ```
 
 #### Crear Película
+
 ```http
-POST /peliculas
+POST /localhost:3000/api/peliculas
 ```
 
 **Request Body**
+
 ```json
 {
   "titulo": "string",
@@ -80,11 +88,13 @@ POST /peliculas
 ```
 
 #### Actualizar Película
+
 ```http
-PUT /peliculas/{id}
+PUT localhost:3000/api/peliculas/{id}
 ```
 
 **Request Body**
+
 ```json
 {
   "titulo": "string",
@@ -98,11 +108,13 @@ PUT /peliculas/{id}
 ```
 
 #### Eliminar Película
+
 ```http
-DELETE /peliculas/{id}
+DELETE localhost:3000/api/peliculas/{id}
 ```
 
 **Request Body**
+
 ```json
 {
   "user": "string"
@@ -112,22 +124,32 @@ DELETE /peliculas/{id}
 ### Turnos
 
 #### Listar Turnos
+
 ```http
-GET /turnos
+GET localhost:3000/api/turnos?peliculaId&sala&desde&hasta
 ```
 
 **Query Parameters:**
+
 - `peliculaId` (string, optional): Filtrar por película
 - `sala` (string, optional): Filtrar por sala
 - `desde` (date, optional): Fecha inicio
 - `hasta` (date, optional): Fecha fin
 
-#### Crear Turno
+#### Obtener Turno por ID
+
 ```http
-POST /turnos
+GET localhost:3000/api/turnos/{id}
+```
+
+#### Crear Turno
+
+```http
+POST localhost:3000/api/turnos
 ```
 
 **Request Body**
+
 ```json
 {
   "peliculaId": "number",
@@ -143,11 +165,13 @@ POST /turnos
 ```
 
 #### Actualizar Turno
+
 ```http
-PUT /turnos/{id}
+PUT localhost:3000/api/turnos/{id}
 ```
 
 **Request Body**
+
 ```json
 {
   "sala": "string",
@@ -162,11 +186,13 @@ PUT /turnos/{id}
 ```
 
 #### Eliminar Turno
+
 ```http
-DELETE /turnos/{id}
+DELETE localhost:3000/api/turnos/{id}
 ```
 
 **Request Body**
+
 ```json
 {
   "user": "string"
