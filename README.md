@@ -216,7 +216,7 @@ DELETE localhost:3000/api/turnos/{id}
 
 ### Arquitectura del Proyecto
 
-#### 1. Router -> Controller (2-Layer Architecture)
+#### 1. Router -> Controller
 ✅ **Ventajas**
 - Arquitectura simple y directa
 - Menos complejidad y overhead
